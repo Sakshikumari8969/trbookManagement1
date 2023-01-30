@@ -1,0 +1,27 @@
+{
+  "name": "trbookmanagement1",
+  "version": "1.0.0",
+  "description": "\"deployment of bookmanagement\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sakshikumari8969/trbookManagement1.git"
+  },
+  "author": "sakshi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sakshikumari8969/trbookManagement1/issues"
+  },
+  "homepage": "https://github.com/Sakshikumari8969/trbookManagement1#readme",
+  "dependencies": {
+    "check-types": "^11.2.2",
+    "express": "^4.18.2",
+    "joi": "^17.7.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.9.0",
+    "node-isbn": "^1.6.1"
+  }
+}
