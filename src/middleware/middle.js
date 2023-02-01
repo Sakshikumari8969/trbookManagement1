@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bookModel = require("../models/bookModel");
-const mongoose=require("mongoose")
+const mongoose = require("mongoose")
 
 // ------------------------------AUTHENTICATION---------------------------------------
 const authentication = async function (req, res, next) {
@@ -8,50 +8,56 @@ const authentication = async function (req, res, next) {
     let token = req.headers["x-auth-key"];
     if (!token) return res.status(401).send({ message: "token not present" });
 
-    jwt.verify(token, "groupseven", (err,decode) => {
-      if (err) {return res.status(401).send({ err: err.message })
-	}else{
-		req.decode = decode;
-		return next(); 
-	};
+    jwt.verify(token, "groupseven", (err, decode) => {
+      if (err) {
+        return res.status(401).send({ err: err.message })
+      } else {
+        req.decode = decode;
+        return next();
+      };
     });
 
   } catch (error) {
     return res.status(500).send({ error: error.message });
-  }};
+  }
+};
 
 // ---------------------------AUTHORISATION------------------------------------------
 
 const authForCreation = async function (req, res, next) {
   try {
-    if(!req.body.userId) return res.status(400).send({message:"user id is not present"})
-    if(!mongoose.Types.ObjectId.isValid(req.body.userId)) return res.status(400).send({message:"user id is not valid"})
-    if (req.decode.userId != req.body.userId)
+    let fetchJSON = req.body.data  //pass JSON key-value and fetch through req.body  in form-data
+    let data = (JSON.parse(fetchJSON)) ///Parse it
+    if (!data.userId) return res.status(400).send({ message: "user id is not present" })
+    if (!mongoose.Types.ObjectId.isValid(data.userId)) return res.status(400).send({ message: "user id is not valid" })
+    if (req.decode.userId != data.userId)
       return res.status(403).send({ message: "you are not authorised" });
 
     next();
   } catch (error) {
     return res.status(500).send({ error: error.message });
-  }};
+  }
+};
 
 // -----------------------------------------
 
 const authForDltAndPut = async (req, res, next) => {
   try {
-     if (!mongoose.Types.ObjectId.isValid(req.params.bookId)) return res.status(400).send({ status: false, message: "bookId is not valid" });
+    if (!mongoose.Types.ObjectId.isValid(req.params.bookId)) return res.status(400).send({ status: false, message: "bookId is not valid" });
 
-  const findBook = await bookModel.findOne({ _id:req.params.bookId, isDeleted: false });
+    const findBook = await bookModel.findOne({ _id: req.params.bookId, isDeleted: false });
 
     if (!findBook) return res.status(404).send({ status: false, message: "no book found with this id " });
 
     if (req.decode.userId != findBook.userId)
-      return res.status(403).send({ message: "you are not authorised" }); 
+      return res.status(403).send({ message: "you are not authorised" });
 
     next();
   } catch (error) {
     return res.status(500).send({ error: error.message });
-  }};
+  }
+};
 
 
 
-module.exports = { authentication, authForCreation ,authForDltAndPut};
+module.exports = { authentication, authForCreation, authForDltAndPut };

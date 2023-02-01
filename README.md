@@ -9,6 +9,15 @@
 - This time each group should have a *single git branch*. Coordinate amongst yourselves by ensuring every next person pulls the code last pushed by a team mate. You branch will be checked as part of the demo. Branch name should follow the naming convention `project/booksManagementGroupX`
 - Follow the naming conventions exactly as instructed.
 
+## AWS:
+Add bookCover (String) key in your bookModel in bookManagement project.when book is being created,take up the book cover as an image,upload it to s3 and save the url in bookCover key. Submit a short explainer video on the same(individually).
+*AWS KEYS:
+Access key ID
+AKIAY3L35MCRZNIRGT6N
+
+Secret access key
+9f+YFBVcSjZWM6DG9R4TUN8k8TGe4X+lXmO4jPiU
+
 ### Models
 - User Model
 ```yaml
