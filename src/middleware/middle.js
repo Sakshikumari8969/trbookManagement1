@@ -27,7 +27,7 @@ const authForCreation = async function (req, res, next) {
     if(!req.body.userId) return res.status(400).send({message:"user id is not present"})
     if(!mongoose.Types.ObjectId.isValid(req.body.userId)) return res.status(400).send({message:"user id is not valid"})
     if (req.decode.userId != req.body.userId)
-      return res.status(403).send({ message: "you are not authorised" });
+      return res.status(401).send({ message: "you are not authorised" });
 
     next();
   } catch (error) {
@@ -45,7 +45,7 @@ const authForDltAndPut = async (req, res, next) => {
     if (!findBook) return res.status(404).send({ status: false, message: "no book found with this id " });
 
     if (req.decode.userId != findBook.userId)
-      return res.status(403).send({ message: "you are not authorised" }); 
+      return res.status(401).send({ message: "you are not authorised" }); 
 
     next();
   } catch (error) {
