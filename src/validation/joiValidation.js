@@ -40,7 +40,7 @@ const userJOI=Joi.object({
 
   email:Joi.string().trim().required().regex(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).message("please enter valid email"),
 
-  password: Joi.string().trim().required().min(8).max(15).message("password  should contain Min 8 character and 1 Special Symbol"),
+  password: Joi.string().trim().required().min(8).max(15).message("password  should contain Min 8 character"),
 
   address: Joi.object({
     street: Joi.string(),
@@ -86,7 +86,7 @@ const userJOI=Joi.object({
 
       ISBN: Joi.string().trim().regex(/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/).message("please enter valid ISBN"),
 
-      releasedAt: Joi.string().message(" please enter date in this format:YYYY-MM-DD")
+      releasedAt: Joi.string().regex(/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/).message(" please enter date in this format:YYYY-MM-DD")
     })
 
     // ==========================update review Joi==========================
