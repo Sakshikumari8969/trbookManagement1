@@ -9,7 +9,7 @@ mongoose.set("strictQuery", true);
 app.use(express.json());
 app.use(multer().any())
 
-mongoose.connect("mongodb+srv://Sakshi:monday123@cluster0.z5dpz2x.mongodb.net/group7Database",
+mongoose.connect("",
     { useNewUrlParser: true })
     .then(() => console.log("Mongodb is connected."))
     .catch((err) => console.log(err));
